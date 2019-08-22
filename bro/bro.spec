@@ -1,21 +1,21 @@
 Name:             bro
-Version:          2.6.1
+Version:          2.6.3
 Release:          1%{?dist}
 Summary:          A Network Intrusion Detection System and Analysis Framework
 
 License:          BSD
-URL:              http://bro.org
-Source0:          http://www.bro.org/downloads/%{name}-%{version}-minimal.tar.gz
+URL:              http://zeek.org
+Source0:          http://www.zeek.org/downloads/%{name}-%{version}-minimal.tar.gz
 Patch0:           https://github.com/zeek/zeek/compare/master...dcode:dcode/gnu-install-dirs.patch#/bro-2.6.1-cmake-gnuinstalldirs.patch
 
 Provides:         zeek
 Requires:         bro-core = %{version}-%{release}
 
-Requires:         broctl = 1:1.9
+Requires:         zeekctl = 1:2.0
 BuildRequires:    cmake >= 2.8.12
 
 %description
-Bro is an open-source, Unix-based Network Intrusion Detection System (NIDS)
+Zeek is an open-source, Unix-based Network Intrusion Detection System (NIDS)
 that passively monitors network traffic and looks for suspicious activity.
 Bro detects intrusions by first parsing network traffic to extract is
 application-level semantics and then executing event-oriented analyzers that
@@ -27,8 +27,8 @@ connecting to certain services, or patterns of failed connection attempts).
 ################################################################################
 %package core
 Summary:          The core bro installation without broctl
-Requires:         libbroker = 1.1.2
-BuildRequires:    libbroker-devel = 1.1.2
+Requires:         libbroker = 1.2.0
+BuildRequires:    libbroker-devel = 1.2.0
 Requires:         caf
 BuildRequires:    caf-devel
 Requires:         bind-libs
@@ -45,9 +45,9 @@ Requires:         openssl
 BuildRequires:    openssl-devel
 Requires:         zlib
 
-BuildRequires:    binpac = 1:0.51
-BuildRequires:    binpac-devel = 1:0.51
-BuildRequires:    bifcl = 1:1.1
+BuildRequires:    binpac = 1:0.54
+BuildRequires:    binpac-devel = 1:0.54
+BuildRequires:    bifcl = 1:1.2
 BuildRequires:    gcc-c++
 BuildRequires:    openssl-devel
 BuildRequires:    flex
@@ -178,6 +178,10 @@ ctest -V %{?_smp_mflags}
 
 ################################################################################
 %changelog
+* Thu Aug 22 2019 Bradford Dabbs <brad@dabbs.io> 2.6.3-1
+- Bumped version to upstream 2.6.3
+- Bumped dependent packages to latest versions
+
 * Thu Feb 14 2019 Derek Ditch <derek@rocknsm.io> 2.6.1-1
 - Bumped version to upstream 2.6.1
 - Split out all non-core and non-devel packages to their own RPMs
