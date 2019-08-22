@@ -6,7 +6,7 @@ Summary:          A Network Intrusion Detection System and Analysis Framework
 License:          BSD
 URL:              http://zeek.org
 Source0:          http://www.zeek.org/downloads/%{name}-%{version}-minimal.tar.gz
-Patch0:           https://github.com/zeek/zeek/compare/master...dcode:dcode/gnu-install-dirs.patch#/bro-2.6.1-cmake-gnuinstalldirs.patch
+Patch0:           https://github.com/zeek/zeek/compare/master...bndabbs:gnu-paths.patch#/bro-2.6.3-cmake-gnuinstalldirs.patch
 
 Provides:         zeek
 Requires:         bro-core = %{version}-%{release}
@@ -26,7 +26,7 @@ connecting to certain services, or patterns of failed connection attempts).
 
 ################################################################################
 %package core
-Summary:          The core bro installation without broctl
+Summary:          The core zeek installation without zeekctl
 Requires:         libbroker = 1.2.0
 BuildRequires:    libbroker-devel = 1.2.0
 Requires:         caf
@@ -68,7 +68,7 @@ and open-science communities.
 
 
 %package devel
-Summary:    The development headers for bro
+Summary:    The development headers for zeek
 Requires:   bro-core
 Requires:   binpac-devel
 Requires:   libpcap-devel
@@ -88,16 +88,16 @@ This package contains the development headers needed to build new Bro plugins.
 %build
 mkdir build; cd build
 %cmake \
-  -DBRO_ROOT_DIR:PATH=%{_prefix} \
+  -DZEEK_ROOT_DIR:PATH=%{_prefix} \
   -DPY_MOD_INSTALL_DIR:PATH=%{python2_sitelib} \
-  -DBRO_SCRIPT_INSTALL_PATH:PATH=%{_datadir}/bro \
-  -DBRO_ETC_INSTALL_DIR:PATH=%{_sysconfdir}/bro \
+  -DZEEK_SCRIPT_INSTALL_PATH:PATH=%{_datadir}/zeek \
+  -DZEEK_ETC_INSTALL_DIR:PATH=%{_sysconfdir}/zeek \
   -DENABLE_MOBILE_IPV6:BOOL=ON \
-  -DBRO_DIST:PATH=%{_usrsrc}/%{name}-%{version}  \
+  -DZEEK_DIST:PATH=%{_usrsrc}/%{name}-%{version}  \
   -DCMAKE_SKIP_RPATH:BOOL=ON \
   -DCAF_ROOT_DIR:PATH=%{_prefix} \
   -DINSTALL_AUX_TOOLS:BOOL=OFF \
-  -DINSTALL_BROCTL:BOOL=OFF \
+  -DINSTALL_ZEEKCTL:BOOL=OFF \
   -DBUILD_SHARED_LIBS:BOOL=ON \
   -DBinPAC_INCLUDE_DIR:PATH=%{_includedir} \
   -DBIFCL_EXE_PATH:PATH=%{_bindir}/bifcl \
@@ -129,13 +129,13 @@ cd build
 #
 # # Install scripts
 # pushd scripts
-# %{__install} -d -m 755 %{buildroot}%{_datadir}/bro/scripts
+# %{__install} -d -m 755 %{buildroot}%{_datadir}/zeek/scripts
 # popd
 #
 # # The signature samples should go into a seperate sub-package if possible
 # # Install example signatures, site policy
-# %{__install} -D -d -m 755 %{buildroot}%{_localstatedir}/lib/bro/site
-# %{__install} -D -d -m 755 %{buildroot}%{_localstatedir}/lib/bro/host
+# %{__install} -D -d -m 755 %{buildroot}%{_localstatedir}/lib/zeek/site
+# %{__install} -D -d -m 755 %{buildroot}%{_localstatedir}/lib/zeek/host
 
 
 #
@@ -159,22 +159,22 @@ ctest -V %{?_smp_mflags}
 %files core
 %doc CHANGES NEWS README VERSION
 %license COPYING
-%caps(cap_net_admin,cap_net_raw=pie) %{_bindir}/bro
-%{_bindir}/bro-config
-%{_mandir}/man8/bro.8*
-%dir %{_datadir}/bro/
-%{_datadir}/bro/base/
-%{_datadir}/bro/broxygen/
-%{_datadir}/bro/policy/
-%config(noreplace) %{_datadir}/bro/site/local.bro
+%caps(cap_net_admin,cap_net_raw=pie) %{_bindir}/zeek
+%{_bindir}/zeek-config
+%{_mandir}/man8/zeek.8*
+%dir %{_datadir}/zeek/
+%{_datadir}/zeek/base/
+%{_datadir}/zeek/broxygen/
+%{_datadir}/zeek/policy/
+%config(noreplace) %{_datadir}/zeek/site/local.zeek
 
 %files devel
 %doc CHANGES NEWS README VERSION
 %license COPYING
-%dir %{_includedir}/bro
-%{_includedir}/bro/*
-%dir %{_datadir}/bro/cmake
-%{_datadir}/bro/cmake/*
+%dir %{_includedir}/zeek
+%{_includedir}/zeek/*
+%dir %{_datadir}/zeek/cmake
+%{_datadir}/zeek/cmake/*
 
 ################################################################################
 %changelog
