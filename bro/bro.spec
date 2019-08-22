@@ -11,7 +11,7 @@ Patch0:           https://github.com/zeek/zeek/compare/master...dcode:dcode/gnu-
 Provides:         zeek
 Requires:         bro-core = %{version}-%{release}
 
-Requires:         zeekctl = 1:2.0
+Requires:         zeekctl = 1:2.0.0
 BuildRequires:    cmake >= 2.8.12
 
 %description
