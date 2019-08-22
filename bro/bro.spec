@@ -4,8 +4,8 @@ Release:          1%{?dist}
 Summary:          A Network Intrusion Detection System and Analysis Framework
 
 License:          BSD
-URL:              http://zeek.org
-Source0:          http://www.zeek.org/downloads/%{name}-%{version}-minimal.tar.gz
+URL:              https://zeek.org
+Source0:          https://www.zeek.org/downloads/%{name}-%{version}-minimal.tar.gz
 Patch0:           https://github.com/zeek/zeek/compare/master...bndabbs:gnu-paths.patch#/bro-2.6.3-cmake-gnuinstalldirs.patch
 
 Provides:         zeek
